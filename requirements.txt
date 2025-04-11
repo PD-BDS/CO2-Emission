@@ -1,6 +1,0 @@
-pandas
-numpy
-requests
-torch
-scikit-learn
-joblib
