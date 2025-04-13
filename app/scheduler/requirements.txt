@@ -1,6 +1,2 @@
-pandas
-numpy
 requests
-joblib
-scikit-learn
-torch
+schedule

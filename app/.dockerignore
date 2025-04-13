@@ -1,4 +1,7 @@
 __pycache__/
+*.pyc
+*.pyo
+*.pyd
 *.py[cod]
 *.log
 *.db
@@ -10,3 +13,4 @@ __pycache__/
 .git/
 *.ipynb
 data/
+notebooks/

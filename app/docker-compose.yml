@@ -1,37 +1,46 @@
-version: "3.10"
-
 services:
   backend:
     build:
-      context: ./backend
-      dockerfile: ../backend/Dockerfile
+      context: .
+      dockerfile: backend/Dockerfile
     container_name: co2-backend
     ports:
       - "8000:8000"
     volumes:
-      - ./backend:/app
+      - ./scripts:/app/scripts
+      - ./database:/app/database
+      - ./models:/app/models
+      - ./logs:/app/logs
     restart: always
 
   frontend:
     build:
-      context: ./frontend
-      dockerfile: ../frontend/Dockerfile
+      context: .
+      dockerfile: frontend/Dockerfile
     container_name: co2-frontend
+    environment:
+      - BACKEND_URL=http://backend:8000
     ports:
       - "8501:8501"
     depends_on:
       - backend
     volumes:
-      - ./frontend:/app
+      - ./scripts:/app/scripts
+      - ./database:/app/database
+      - ./models:/app/models
+      - ./logs:/app/logs
     restart: always
 
   scheduler:
     build:
-      context: ./scheduler
-      dockerfile: ../scheduler/Dockerfile
+      context: .
+      dockerfile: scheduler/Dockerfile
     container_name: co2-scheduler
     depends_on:
       - backend
     volumes:
-      - ./scheduler:/app
+      - ./scripts:/app/scripts
+      - ./database:/app/database
+      - ./models:/app/models
+      - ./logs:/app/logs
     restart: always

@@ -2,8 +2,10 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import sqlite3
 import pandas as pd
+import os
 
-DB_PATH = "app/database/co2_emission.db"
+DB_PATH = os.path.join(os.getcwd(), "database", "co2_emission.db")
+
 app = FastAPI()
 
 app.add_middleware(
@@ -45,12 +47,12 @@ def get_last_6h_predictions_vs_actual():
         LIMIT 6
     """)
 
-@app.get("/latest-model")
+@app.get("/best-model")
 def get_latest_model():
     return query_db("""
         SELECT m.Model_id, m.Model_name, m.Version, m.Created_at, e.Pseudo_accuracy, e.RMSE, e.MAE, e.R2
         FROM model_table m
         JOIN model_evaluations e ON m.Model_id = e.model_id
-        ORDER BY e.evaluated_at DESC
+        ORDER BY e.Pseudo_accuracy DESC
         LIMIT 1
     """)

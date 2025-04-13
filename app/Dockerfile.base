@@ -1,0 +1,11 @@
+FROM python:3.10-slim
+
+WORKDIR /base
+
+COPY base-requirements.txt .
+
+RUN apt-get update && apt-get install -y curl && apt-get clean && \
+    pip install --no-cache-dir torch==2.0.1+cpu torchvision==0.15.2+cpu torchaudio==2.0.2 \
+      --index-url https://download.pytorch.org/whl/cpu && \
+    pip install --no-cache-dir -r base-requirements.txt && \
+    rm -rf /root/.cache /var/lib/apt/lists/*

@@ -5,7 +5,7 @@ from datetime import datetime
 import subprocess
 
 # Logging configuration
-LOG_FILE = "app/logs/scheduler.log"
+LOG_FILE = "logs/scheduler.log"
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s [%(levelname)s] %(message)s",
@@ -37,8 +37,8 @@ def run_script(name: str, command: list):
 def main():
     logging.info("📅 CO2 Emission Scheduler started.")
     while True:
-        run_script("Data Ingestion Pipeline", ["python", "data_pipeline/pipeline.py"])
-        run_script("Prediction Pipeline", ["python", "pipelines/predict.py"])
+        run_script("Data Ingestion Pipeline", ["python", "scripts/data_pipeline/d_pipeline.py"])
+        run_script("Prediction Pipeline", ["python", "scripts/prediction_pipelines/predict.py"])
 
         logging.info(f"⏳ Sleeping for {SLEEP_INTERVAL_SECONDS / 3600:.1f} hours...\n")
         time.sleep(SLEEP_INTERVAL_SECONDS)

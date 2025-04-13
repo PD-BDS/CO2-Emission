@@ -4,12 +4,12 @@
 # Ensure log directory exists
 mkdir -p /app/logs
 
-# Load cron job
-crontab /app/scheduler/cronjob
+# Corrected cronjob path (was previously broken)
+crontab /app/cronjob
 
-# Start cron
+# Start cron service
 cron
 
-# Tail all relevant logs to keep container running
+# Tail logs to keep container alive
 touch /app/logs/d_pipeline_cron.log /app/logs/predict_cron.log
 tail -n 100 -f /app/logs/d_pipeline_cron.log /app/logs/predict_cron.log

@@ -1,15 +1,15 @@
-FROM python:3.10-slim
+FROM co2-base
 
-RUN apt-get update && apt-get install -y cron && apt-get clean
+RUN apt-get update && apt-get install -y cron && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
+ENV PYTHONPATH=/app
 
-COPY requirements.txt ./
+COPY scheduler/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY . .
+COPY scheduler/ /app/
+COPY scheduler/cronjob /app/cronjob
 
-COPY scheduler/cronjob scheduler/start-cron.sh /app/scheduler/
-RUN chmod +x /app/scheduler/start-cron.sh
-
-CMD ["/app/scheduler/start-cron.sh"]
+RUN chmod +x /app/start-cron.sh
+CMD ["/app/start-cron.sh"]

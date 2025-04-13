@@ -1,1 +1,1 @@
-0 */6 * * * cd /app && python data_pipeline/d_pipeline.py >> /app/logs/d_pipeline_cron.log 2>&1 && python prediction_pipeline/predict.py >> /app/logs/predict_cron.log 2>&1
+0 */6 * * * cd /app && python scripts/data_pipeline/d_pipeline.py >> /app/logs/d_pipeline_cron.log 2>&1 && python scripts/prediction_pipeline/predict.py >> /app/logs/predict_cron.log 2>&1
