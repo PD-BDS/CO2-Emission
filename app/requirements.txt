@@ -1,0 +1,10 @@
+pandas
+numpy
+requests
+torch
+scikit-learn
+joblib
+fastapi
+uvicorn
+streamlit
+plotly
