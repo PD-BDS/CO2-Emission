@@ -1,4 +1,3 @@
-```markdown
 # 🌍 CO₂ Emission Forecasting System
 
 This is a full-stack **MLOps pipeline** for real-time forecasting of CO₂ emissions using energy production data from the Danish Energy API. The project automates **data ingestion, feature engineering, model training, prediction, evaluation, and retraining**, all deployed in a containerized architecture with a **Streamlit frontend**, **FastAPI backend**, and **scheduled cron jobs** for continuous operation.
