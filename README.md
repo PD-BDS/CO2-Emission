@@ -6,19 +6,20 @@ This is a full-stack **MLOps pipeline** for real-time forecasting of CO₂ emiss
 
 ## 🚀 Project Architecture
 
+```markdown
 ```mermaid
 graph TD
   A[Data Ingestion] --> B[Feature Engineering]
-  B --> C[SQLite DB]
-  C --> D[Model Training: LSTM + Attention]
+  B --> C[SQLite Database]
+  C --> D[Model Training: LSTM with Attention]
   D --> E[Model Evaluation and Logging]
   C --> F[Prediction Pipeline]
   F --> G[Prediction Logging]
   G --> H[FastAPI Backend]
   H --> I[Streamlit Dashboard]
-  G --> J[Retrainer if Accuracy < 65%]
+  G --> J[Retrainer Triggered if Accuracy Below 65%]
   J --> D
----
+```
 
 ## 📦 Tech Stack
 
