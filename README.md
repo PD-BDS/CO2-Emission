@@ -164,4 +164,3 @@ Runs every 6 hours:
 ## 📝 License
 
 MIT License. See `LICENSE.md` for details.
-```
