@@ -10,13 +10,13 @@ This is a full-stack **MLOps pipeline** for real-time forecasting of CO₂ emiss
 graph TD
   A[Data Ingestion] --> B[Feature Engineering]
   B --> C[SQLite Database]
-  C --> D[Model Training LSTM with Attention]
-  D --> E[Model Evaluation and Logging]
+  C --> D[LSTM with Attention Training]
+  D --> E[Model Evaluation]
   C --> F[Prediction Pipeline]
   F --> G[Prediction Logging]
   G --> H[FastAPI Backend]
   H --> I[Streamlit Dashboard]
-  G --> J[Retrainer Triggered if Accuracy Below 65%]
+  G --> J[Retrainer Triggered if Accuracy < 65%]
   J --> D
 ```
 ---
