@@ -6,7 +6,6 @@ This is a full-stack **MLOps pipeline** for real-time forecasting of CO₂ emiss
 
 ## 🚀 Project Architecture
 
-```markdown
 ```mermaid
 graph TD
   A[Data Ingestion] --> B[Feature Engineering]
@@ -20,7 +19,7 @@ graph TD
   G --> J[Retrainer Triggered if Accuracy Below 65%]
   J --> D
 ```
-
+---
 ## 📦 Tech Stack
 
 | Layer        | Tools / Frameworks                                                                 |
