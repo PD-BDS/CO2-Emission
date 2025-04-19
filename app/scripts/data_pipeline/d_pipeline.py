@@ -1,9 +1,13 @@
+import sys
 from datetime import datetime, timedelta
 import logging
 from scripts.data_pipeline.db_operation import get_last_date_from_db, store_to_db
 from scripts.data_pipeline.data_fetcher import fetch_data
 from scripts.data_pipeline.data_processor import process_and_aggregate
 from scripts.data_pipeline.feature_engineering import add_features
+
+sys.stdout.reconfigure(line_buffering=True)
+sys.stderr.reconfigure(line_buffering=True)
 
 def run_pipeline():
     try:
@@ -44,4 +48,6 @@ def run_pipeline():
         logging.error(f"Error during pipeline execution: {e}")
 
 if __name__ == "__main__":
+    print(f"🟢 Starting data pipeline at {datetime.now()}", file=sys.stdout)
     run_pipeline()
+    print(f"✅ Finished data pipeline at {datetime.now()}", file=sys.stdout)

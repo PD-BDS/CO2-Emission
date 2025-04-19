@@ -15,14 +15,14 @@ OUTPUT_WINDOW = 6
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 
-def get_best_model_info():
+def get_latest_model_info():
     conn = sqlite3.connect(DB_PATH)
     row = conn.execute('''
-        SELECT m.Model_id, m.Model_path, e.Pseudo_accuracy
+        SELECT m.Model_id, m.Model_path, e.Pseudo_accuracy, e.evaluated_at
         FROM model_table m
         JOIN model_evaluations e ON m.Model_id = e.model_id
         WHERE e.Pseudo_accuracy IS NOT NULL
-        ORDER BY e.Pseudo_accuracy DESC
+        ORDER BY e.evaluated_at DESC
         LIMIT 1
     ''').fetchone()
     conn.close()
@@ -209,7 +209,7 @@ def evaluate_latest_predictions():
 
 
 def run_prediction_pipeline():
-    model_id, model_path, _ = get_best_model_info()
+    model_id, model_path, _ = get_latest_model_info()
     if model_id is None:
         logging.warning("No model available for prediction.")
         return

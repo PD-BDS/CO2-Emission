@@ -1,6 +1,6 @@
 import torch
 import joblib
-from datetime import datetime
+from datetime import datetime, timedelta
 from scripts.model_pipeline.data_utils import load_data, create_sequences
 from scripts.model_pipeline.trainer import train_model
 from scripts.model_pipeline.evaluator import evaluate_model
@@ -14,6 +14,10 @@ OUTPUT_WINDOW = 6
 
 def retrain_model():
     timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+    end = datetime.now()
+    start = end - timedelta(days=730)
+    ts, X, y, scaler_x, scaler_y = load_data(start.strftime('%Y-%m-%d %H:%M:%S'), end.strftime('%Y-%m-%d %H:%M:%S'))
+
     ts, X, y, scaler_x, scaler_y = load_data()
     X_seq, y_seq = create_sequences(X, y, INPUT_WINDOW, OUTPUT_WINDOW)
 
@@ -34,5 +38,7 @@ def retrain_model():
     y_pred, y_true, mae, mse, rmse, r2, mape, acc, ts_eval = evaluate_model(model, X_test, y_test, scaler_y, test_ts, OUTPUT_WINDOW)
     metrics = {"mae": mae, "mse": mse, "rmse": rmse, "r2": r2, "mape": mape, "accuracy": acc}
 
-    log_to_database(DB_PATH, model_path, model_name, version, "Auto-retrained on recent data",
+    train_range = f"{start.strftime('%Y-%m-%d %H:%M:%S')} to {end.strftime('%Y-%m-%d %H:%M:%S')}"
+
+    log_to_database(DB_PATH, model_path, model_name, version, train_range,
                     BEST_PARAMS, y_pred, y_true, metrics, ts_eval, f"retrain_{timestamp}")

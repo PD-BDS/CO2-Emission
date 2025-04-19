@@ -31,10 +31,11 @@ with tab1:
 with tab2:
     r = requests.get(f"{API}/next-6h-predictions")
     df = pd.DataFrame(r.json())
-    df = round(df["Prediction", 2])
+    
     if df.empty or "TimeStamp" not in df.columns:
         st.warning("No data available for the last 24 hours.")
     else:
+        df["Prediction"] = round(df["Prediction"], 2)
         fig = px.line(df, x="TimeStamp", y="Prediction", title="Next 6 Hours Forecast")
         fig.update_traces(mode="lines+markers+text", text=df["Prediction"], textposition="top center")
         st.plotly_chart(fig, use_container_width=True)
@@ -44,11 +45,11 @@ with tab3:
     
     if r.status_code == 200:
         df = pd.DataFrame(r.json())
-        df = round(df["Prediction"], 2)
 
         if df.empty or "TimeStamp" not in df.columns:
             st.warning("No data available for the last 6 hours.")
         else:
+            df["Prediction"] = round(df["Prediction"], 2)
             df['Actual'].fillna(0, inplace=True)
             fig = px.line(df.melt(id_vars="TimeStamp", value_vars=["Prediction", "Actual"]),
                           x="TimeStamp", y="value", color="variable", title="Prediction vs Actual (Last 6h)", markers=True)

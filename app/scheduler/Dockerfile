@@ -7,6 +7,7 @@ ENV PYTHONPATH=/app
 
 COPY scheduler/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
+RUN ln -s /usr/bin/python3 /usr/bin/python
 
 COPY scheduler/ /app/
 COPY scheduler/cronjob /app/cronjob

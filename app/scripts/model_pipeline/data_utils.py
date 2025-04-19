@@ -1,14 +1,20 @@
 import sqlite3
 import pandas as pd
 import numpy as np
+from datetime import datetime
 from sklearn.preprocessing import MinMaxScaler
 
 DB_PATH = "database/co2_emission.db"
 TRAIN_START = "2023-01-01 00:00:00"
 TRAIN_END = "2025-04-01 23:00:00"
 
-def load_data():
+def load_data(start_date=None, end_date=None):
     conn = sqlite3.connect(DB_PATH)
+
+    if start_date is None or end_date is None:
+        end_date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        start_date = (datetime.now() - pd.DateOffset(years=2)).strftime("%Y-%m-%d %H:%M:%S")
+
     query = """
         SELECT * FROM (
             SELECT 
@@ -35,7 +41,7 @@ def load_data():
             ORDER BY a.TimeStamp
         )
     """
-    df = pd.read_sql_query(query, conn, params=(TRAIN_START, TRAIN_END))
+    df = pd.read_sql_query(query, conn, params=(start_date, end_date))
     conn.close()
 
     df['TimeStamp'] = pd.to_datetime(df['TimeStamp'])
@@ -47,6 +53,7 @@ def load_data():
     scaler_y = MinMaxScaler().fit(target)
 
     return df.index, scaler_x.transform(features), scaler_y.transform(target), scaler_x, scaler_y
+
 
 def create_sequences(X, y, input_window=24, output_window=6):
     Xs, ys = [], []
