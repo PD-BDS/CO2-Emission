@@ -5,7 +5,4 @@
 ✅ Finished data pipeline at 2025-04-16 20:08:39.324346
 🟢 Starting data pipeline at 2025-04-16 20:24:13.048496
 ✅ Finished data pipeline at 2025-04-16 20:24:13.444628
-Traceback (most recent call last):
-  File "/app/scripts/data_pipeline/d_pipeline.py", line 4, in <module>
-    from scripts.data_pipeline.db_operation import get_last_date_from_db, store_to_db
-ModuleNotFoundError: No module named 'scripts'
+

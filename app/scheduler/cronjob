@@ -1,1 +1,1 @@
-0 */6 * * * cd /app && /usr/local/bin/python -u scripts/data_pipeline/d_pipeline.py >> /app/logs/d_pipeline_cron.log 2>&1 && /usr/local/bin/python -u scripts/prediction_pipeline/predict.py >> /app/logs/predict_cron.log 2>&1
+0 */6 * * *  cd /app && PYTHONPATH=/app /usr/local/bin/python -u scripts/data_pipeline/d_pipeline.py >> /app/logs/d_pipeline_cron.log 2>&1 && PYTHONPATH=/app /usr/local/bin/python -u scripts/prediction_pipeline/predict.py >> /app/logs/predict_cron.log 2>&1
